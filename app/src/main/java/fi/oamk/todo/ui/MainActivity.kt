@@ -18,6 +18,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import fi.oamk.todo.model.Todo
 import fi.oamk.todo.viewmodel.TodoViewModel
 //import com.example.todo.viewmodel.TodoViewModel
 //import androidx.lifecycle.viewmodel.compose.viewModel
@@ -43,13 +44,13 @@ fun TodoScreen(modifier: Modifier = Modifier,todoViewModel: TodoViewModel= viewM
 }
 
 @Composable
-fun TodoList (modifier: Modifier, todos: List<String>) {
+fun TodoList (modifier: Modifier, todos: List<Todo>) {
     LazyColumn (
-        modifier = Modifier.padding(8.dp)
+        modifier = modifier
     ){
         items(todos) { todo ->
             Text(
-                text = todo,
+                text = todo.title,
                 modifier = Modifier.padding(top=4.dp,bottom=4.dp)
             )
             HorizontalDivider(color = Color.LightGray, thickness = 2.dp)
@@ -61,9 +62,19 @@ fun TodoList (modifier: Modifier, todos: List<String>) {
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-    val fakeViewModel = TodoViewModel()
-
+//    val fakeViewModel = TodoViewModel()
+//
+//    TodoTheme {
+//        TodoScreen(todoViewModel = fakeViewModel)
+//    }
     TodoTheme {
-        TodoScreen(todoViewModel = fakeViewModel)
+        TodoList(
+            modifier = Modifier,
+            todos = listOf(
+                Todo(userId = 1, id = 1, title = "Buy milk", completed = false),
+                Todo(userId = 1, id = 2, title = "Walk the dog", completed = true),
+                Todo(userId = 2, id = 3, title = "Read a book", completed = false)
+            )
+        )
     }
 }
